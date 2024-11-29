@@ -26,23 +26,28 @@ def command_image_binding(file)
     }
   when "java"
     {
-      Cmd: ["bash", "-c", "javac #{File.basename(file.path)} && java #{File.basename(file.path, ".java")}"],
+      Cmd: ["bash", "-c", "javac #{file.path} && java #{file.path}"],
       image: "openjdk:latest"
     }
   when "c"
     {
-      Cmd: ["bash", "-c", "gcc #{File.basename(file.path)} -o /tmp/a.out && /tmp/a.out"],
+      Cmd: ["bash", "-c", "gcc #{file.path} -o /tmp/a.out && /tmp/a.out"],
       image: "gcc:latest"
     }
   when "cpp"
     {
-      Cmd: ["bash", "-c", "g++ #{File.basename(file.path)} -o /tmp/a.out && /tmp/a.out"],
+      Cmd: ["bash", "-c", "g++ #{file.path} -o /tmp/a.out && /tmp/a.out"],
       image: "gcc:latest"
     }
   when "cs"
     {
-      Cmd: ["bash", "-c", "mcs -out:/workspace/a.exe #{File.basename(file.path)} && mono /workspace/a.exe"],
+      Cmd: ["bash", "-c", "mcs -out:/workspace/a.exe #{file.path} && mono /workspace/a.exe"],
       image: "mono:latest"
+    }
+  when "rs"
+    {
+      Cmd: ["bash", "-c", "rustc #{file.path} -o /tmp/a.out && /tmp/a.out"],
+      image: "rust:latest"
     }
   else
     puts "Unknown extension"
