@@ -39,6 +39,11 @@ def command_image_binding(file)
       Cmd: ["bash", "-c", "g++ #{File.basename(file.path)} -o /tmp/a.out && /tmp/a.out"],
       image: "gcc:latest"
     }
+  when "cs"
+    {
+      Cmd: ["bash", "-c", "mcs -out:/workspace/a.exe #{File.basename(file.path)} && mono /workspace/a.exe"],
+      image: "mono:latest"
+    }
   else
     puts "Unknown extension"
     exit(0)
